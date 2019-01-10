@@ -26,7 +26,7 @@ const creatUserRows = data => data.map(u => [u.id]);
 class PageWelcome extends Component {
   constructor(props) {
     super(props);
-    document.title = 'Error 404';
+    document.title = 'Welcome';
   }
 
   render() {

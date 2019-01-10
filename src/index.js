@@ -22,14 +22,25 @@ import * as serviceWorker from './serviceWorker';
 
 
 //require('dotenv').config();
+//const apiKEY = process.env.API_KEY;
 
-//const api = process.env.API_GRAPHQL;
-
-const httpLink = createHttpLink({
-  uri: 'https://tweb-2019-api-jerem.herokuapp.com/graphql',
+// API 
+const httpLinkFilms = createHttpLink({
+  uri: 'https://graphql-tmdb.herokuapp.com/graphql',
+  headers: {
+    authorization: `f1be4bafe6f7cb0cb84f5948c5b75497`,
+  }
+});
+const clientFilms = new ApolloClient({
+  link: httpLinkFilms,
+  cache: new InMemoryCache()
 });
 
 
+// Api Graphql de connexion
+const httpLink = createHttpLink({
+  uri: 'https://tweb-2019-api-jerem.herokuapp.com/graphql',
+});
 const client = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache()
@@ -37,13 +48,15 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <Router>
-      <MuiThemeProvider theme={Theme}>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
-      </MuiThemeProvider>
-    </Router>
+    <ApolloProvider client={clientFilms}>
+      <Router>
+        <MuiThemeProvider theme={Theme}>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </MuiThemeProvider>
+      </Router>
+    </ApolloProvider>
   </ApolloProvider>,
   document.getElementById('root')
 );

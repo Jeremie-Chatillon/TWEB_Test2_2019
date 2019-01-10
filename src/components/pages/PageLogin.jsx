@@ -92,7 +92,7 @@ class PageLogin extends React.Component {
                   <main className={classes.layout}>
                     <Paper className={classes.paper}>
                       <Avatar className={classes.avatar}>
-                        <LockIcon cplor="secondary" />
+                        <LockIcon color="secondary" />
                       </Avatar>
                       <Typography component="h1" variant="h5">
                         {'Connexion'}

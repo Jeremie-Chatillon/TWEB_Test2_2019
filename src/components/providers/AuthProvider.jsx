@@ -22,6 +22,13 @@ mutation ($email: String!, $password: String!){
 }
   `;
 
+const mutRelog= gql`
+  mutation($tokenInput:String!){
+    relog(token: $tokenInput){
+      token
+    }
+  }
+    `;
 class AuthProvider extends React.Component {
   constructor(props) {
     super(props);
@@ -41,8 +48,24 @@ class AuthProvider extends React.Component {
   // TODO
   componentDidMount() {
     const token = window.localStorage.getItem('token');
+    console.log(token);
     if (token) {
-      // Récupéréer client.query()
+    const { client } = this.props;
+    client.mutate({ mutation: mutRelog, variables: { tokenInput: token } }).then(
+      (data) => {
+        const decoded = jwtDecode(data.data.relog.token);
+        this.setState({
+          userID: decoded.id,
+          userMail: decoded.email,
+          userToken: data.data.relog.token,
+          error: null,
+        });
+      }
+
+    ).catch(error => {
+      console.log(error);
+      //this.signOut();
+    }); 
     }
   }
 
@@ -53,12 +76,13 @@ class AuthProvider extends React.Component {
     const { client } = this.props;
     client.mutate({ mutation: mutLogin, variables: {  email: userEmail, password: password} }).then(
       (data) => {
-        const { token } = data.data.login.token;
+        
+        window.localStorage.setItem('token', data.data.login.token);
         const decoded = jwtDecode(data.data.login.token);
         this.setState({
           userID: decoded.id,
           userMail: decoded.email,
-          userToken: token,
+          userToken: data.data.login.token,
 
           error: null,
         });

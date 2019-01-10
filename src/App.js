@@ -7,10 +7,10 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Header from './components/Header';
 
 import {
-  PageAcceuil,
+  PageTopMovies,
   PageError404,
   PageLogin,
-  PageWelcom,
+  PageUpcMovies,
 } from './components/pages/Pages';
 
 import { AuthContext } from './components/providers/AuthProvider';
@@ -51,9 +51,9 @@ class App extends React.Component {
         <Header />
         <div className={classes.page} center="xs">
           <Switch>
-            <Route path="/" exact component={PageAcceuil} />
+            <Route path="/" exact component={PageTopMovies} />
             <Route path="/login" component={PageLogin} />
-            <ProtectedRoute path="/welcome" exact component={PageWelcom} />
+            <Route path="/upcoming" exact component={PageUpcMovies} />
             <Route path="*" component={PageError404} />
           </Switch>
         </div>

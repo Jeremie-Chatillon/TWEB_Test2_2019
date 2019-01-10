@@ -38,8 +38,8 @@ function MenuAppBar(props) {
 
   const menuLarge = (
     <>
-      <Link to="/" className={classes.LinkButton} readOnly tabIndex="-1"><Button id="accueilButton">Accueil</Button></Link>
-      <Link to="/welcome" className={classes.LinkButton} readOnly tabIndex="-1"><Button id="mapButton">welcome</Button></Link>
+      <Link to="/" className={classes.LinkButton} readOnly tabIndex="-1"><Button id="accueilButton">Top Movies</Button></Link>
+      <Link to="/upcoming" className={classes.LinkButton} readOnly tabIndex="-1"><Button id="mapButton">upComing Movies</Button></Link>
       <AuthContext>
         {({ userMail, signOut }) => {
           const onClick = (event) => {

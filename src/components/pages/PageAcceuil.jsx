@@ -13,7 +13,7 @@ const styles = {
 class PageAcceuil extends Component {
   constructor(props) {
     super(props);
-    document.title = 'Error 404';
+    document.title = 'Acceuil';
   }
 
   render() {
